@@ -1,0 +1,1231 @@
+Suppose I have a project which is created using Laravel and vue js and inertia . The problem is that the side bar from default layout is shown in all pages and when scrolling and tapping on an item from side bar the new page will be rendered but scroll position of the side bar will be reset . So I need to keep the scroll position in the incoming page .
+This is a default layout that appears in all pages 
+` <script setup>
+import VerticalNavSectionTitle from '@/@layouts/components/VerticalNavSectionTitle.vue'
+import VerticalNavLayout from '@layouts/components/VerticalNavLayout.vue'
+import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
+
+// Components
+import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
+import UserProfile from '@/layouts/components/UserProfile.vue'
+
+</script>
+
+<template>
+  <VerticalNavLayout>
+    <!-- 👉 navbar -->
+    <template #navbar="{ toggleVerticalOverlayNavActive }">
+      <div class="d-flex h-100 align-center">
+        <!-- 👉 Vertical nav toggle in overlay mode -->
+        <IconBtn class="ms-n3 d-lg-none" @click="toggleVerticalOverlayNavActive(true)">
+          <VIcon icon="mdi-menu" />
+        </IconBtn>
+
+        <!-- 👉 Search -->
+        <div class="d-flex align-center cursor-pointer" style="user-select: none;">
+          <!-- 👉 Search Trigger button -->
+          <IconBtn>
+
+            <VIcon icon="mdi-magnify" />
+          </IconBtn>
+
+          <span class="d-none d-md-flex align-center text-disabled">
+            <span class="me-3">Search</span>
+            <span class="meta-key">&#8984;K</span>
+          </span>
+        </div>
+
+        <VSpacer />
+
+        <IconBtn class="me-2" href="https://github.com/themeselection/materio-vuetify-laravel-admin-template-free"
+          target="_blank" rel="noopener noreferrer">
+          <VIcon icon="mdi-github" />
+        </IconBtn>
+
+        <IconBtn class="me-2">
+          <VIcon icon="mdi-bell-outline" />
+        </IconBtn>
+
+        <NavbarThemeSwitcher class="me-2" />
+
+        <UserProfile />
+      </div>
+    </template>
+
+    <template #vertical-nav-content>
+
+      <div id="drawer" ref="drawer"  >
+        <VerticalNavLink :item="{
+        title: 'Dashboard',
+        icon: 'mdi-home-outline',
+        to: 'dashboard',
+      }" />
+
+      <VerticalNavLink :item="{
+        title: 'Banners',
+        icon: 'mdi-folder-image',
+        to: 'banners',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Flash Sales',
+        icon: 'mdi-fire',
+        to: 'flash-sales',
+      }" />
+      <!-- 👉 Vendor Management -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'Vendor Management',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Vendor Types',
+        icon: 'mdi-fire',
+        to: 'vendors-types',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Zones',
+        icon: 'mdi-fire',
+        to: 'zones',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Fees',
+        icon: 'mdi-fire',
+        to: 'vendor-fees',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Vendors',
+        icon: 'mdi-fire',
+        to: 'vendors',
+      }" />
+
+      <!-- 👉 Categories -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'Categories',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Categories',
+        icon: 'mdi-account-cog-outline',
+        to: 'categories',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'SubCategories',
+        icon: 'mdi-account-cog-outline',
+        to: 'subcategories',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Tags',
+        icon: 'mdi-account-cog-outline',
+        to: 'tags',
+      }" />
+      <!-- 👉 Products -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'Products',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Products',
+        icon: 'mdi-account-cog-outline',
+        to: 'products',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Menus',
+        icon: 'mdi-account-cog-outline',
+        to: 'menus',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Option groups',
+        icon: 'mdi-account-cog-outline',
+        to: 'options-groups',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Options',
+        icon: 'mdi-account-cog-outline',
+        to: 'options',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Favourites',
+        icon: 'mdi-account-cog-outline',
+        to: 'favourites',
+      }" />
+      <!-- 👉 Package Delivery -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'Package Delivery',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Package Types',
+        icon: 'mdi-account-cog-outline',
+        to: 'package-types',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Countries',
+        icon: 'mdi-account-cog-outline',
+        to: 'countries',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'States',
+        icon: 'mdi-account-cog-outline',
+        to: 'states',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Cities',
+        icon: 'mdi-account-cog-outline',
+        to: 'cities',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'New Package Order',
+        icon: 'mdi-account-cog-outline',
+        to: 'new-package-order',
+      }" />
+      <!-- 👉 Services/Booking -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'Services/Booking',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Services/Booking',
+        icon: 'mdi-account-cog-outline',
+        to: 'service-booking',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Service Groups',
+        icon: 'mdi-account-cog-outline',
+        to: 'service-groups',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Service Options',
+        icon: 'mdi-account-cog-outline',
+        to: 'service-options',
+      }" />
+      <!-- 👉 Taxi Booking -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'Taxi Booking',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Vehicle Types',
+        icon: 'mdi-account-cog-outline',
+        to: 'vehicle-types',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Vehicles',
+        icon: 'mdi-account-cog-outline',
+        to: 'vehicles',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Car Makes',
+        icon: 'mdi-account-cog-outline',
+        to: 'car-makes',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Car Models',
+        icon: 'mdi-account-cog-outline',
+        to: 'car-models',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Payment Methods',
+        icon: 'mdi-account-cog-outline',
+        to: 'payment-methods',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Vehicle Multiple Pricing',
+        icon: 'mdi-account-cog-outline',
+        to: 'vehicle-pricing',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Settings',
+        icon: 'mdi-account-cog-outline',
+        to: 'taxi-settings',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Zones',
+        icon: 'mdi-account-cog-outline',
+        to: 'taxi-zones',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'New Taxi Order',
+        icon: 'mdi-account-cog-outline',
+        to: 'new-taxi-order',
+      }" />
+      <!-- 👉 Fleet Managment -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'Fleet Managment',
+      }" />
+
+      <VerticalNavLink :item="{
+        title: 'Fleets',
+        icon: 'mdi-account-cog-outline',
+        to: 'fleets',
+      }" />
+      <!-- 👉 Orders -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'Orders',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Orders',
+        icon: 'mdi-account-cog-outline',
+        to: 'orders',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Refunds',
+        icon: 'mdi-account-cog-outline',
+        to: 'refunds',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Reviews',
+        icon: 'mdi-account-cog-outline',
+        to: 'reviews',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Product Reviews',
+        icon: 'mdi-account-cog-outline',
+        to: 'product-reviews',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Delivery Address',
+        icon: 'mdi-account-cog-outline',
+        to: 'orders-delivery-address',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Coupons',
+        icon: 'mdi-account-cog-outline',
+        to: 'orders-coupons',
+      }" />
+      <!-- 👉 Users Management -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'Users Management',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Users',
+        icon: 'mdi-account-cog-outline',
+        to: 'users',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Deleted Users',
+        icon: 'mdi-account-cog-outline',
+        to: 'deleted-users',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Drivers',
+        icon: 'mdi-account-cog-outline',
+        to: 'drivers',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Deleted Drivers',
+        icon: 'mdi-account-cog-outline',
+        to: 'deleted-drivers',
+      }" />
+      <!-- 👉 Payments -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'Payments',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Wallet Transactions',
+        icon: 'mdi-account-cog-outline',
+        to: 'wallet-transactions',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Payment Accounts',
+        icon: 'mdi-account-cog-outline',
+        to: 'payment-accounts',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Outstanding Payments',
+        icon: 'mdi-account-cog-outline',
+        to: 'outstanding-payments',
+      }" />
+      <!-- 👉 Earnings -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'Earnings',
+      }" />
+
+      <VerticalNavLink :item="{
+        title: 'Current Vendor Earnings',
+        icon: 'mdi-account-cog-outline',
+        to: 'current-vendor-earnings',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Current Driver Earnings',
+        icon: 'mdi-account-cog-outline',
+        to: 'current-driver-earnings',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Driver Remittance',
+        icon: 'mdi-account-cog-outline',
+        to: 'driver-remittance',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Vendor Earning History',
+        icon: 'mdi-account-cog-outline',
+        to: 'vendor-earning-history',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Driver Earnings History',
+        icon: 'mdi-account-cog-outline',
+        to: 'driver-earnings-history',
+      }" />
+
+      <!-- 👉 Payouts -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'Payouts',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Vendor Payouts',
+        icon: 'mdi-account-cog-outline',
+        to: 'vendor-payouts',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Driver Payouts',
+        icon: 'mdi-account-cog-outline',
+        to: 'driver-payouts',
+      }" />
+      <!-- 👉 Subscription -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'Subscription',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Subscriptions',
+        icon: 'mdi-account-cog-outline',
+        to: 'subscriptions',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Vendor Subscriptions',
+        icon: 'mdi-account-cog-outline',
+        to: 'vendor-subscriptions',
+      }" />
+      <!-- 👉 Operations -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'Operations',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Notifications',
+        icon: 'mdi-account-cog-outline',
+        to: 'notifications',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Backup',
+        icon: 'mdi-account-cog-outline',
+        to: 'backup',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Import',
+        icon: 'mdi-account-cog-outline',
+        to: 'import',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Export',
+        icon: 'mdi-account-cog-outline',
+        to: 'export',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Logs',
+        icon: 'mdi-account-cog-outline',
+        to: 'logs',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Clear Data',
+        icon: 'mdi-account-cog-outline',
+        to: 'clear-data',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'CRON JOB',
+        icon: 'mdi-account-cog-outline',
+        to: 'cron-job',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Auto-Assignments',
+        icon: 'mdi-account-cog-outline',
+        to: 'auto-assignments',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Troubleshoot',
+        icon: 'mdi-account-cog-outline',
+        to: 'troubleshoot',
+      }" />
+      <!-- 👉 Settings -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'Settings',
+      }" />
+
+      <VerticalNavLink :item="{
+        title: 'Currencies',
+        icon: 'mdi-eye-outline',
+        to: 'currencies',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Payment Methods',
+        icon: 'mdi-eye-outline',
+        to: 'payment-methods',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Wallet Payment Methods',
+        icon: 'mdi-eye-outline',
+        to: 'wallet-payment-methods',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'SMS Gateways',
+        icon: 'mdi-eye-outline',
+        to: 'sms-gateways',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'General Settings',
+        icon: 'mdi-eye-outline',
+        to: 'general-settings',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Mobile App Settings',
+        icon: 'mdi-eye-outline',
+        to: 'mobile-settings',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Map Settings',
+        icon: 'mdi-eye-outline',
+        to: 'map-settings',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'UI Settings',
+        icon: 'mdi-eye-outline',
+        to: 'ui-settings',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Finance Settings',
+        icon: 'mdi-eye-outline',
+        to: 'finance-settings',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Payment Webhooks',
+        icon: 'mdi-eye-outline',
+        to: 'payment-webhooks',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Dynamic Link Settings',
+        icon: 'mdi-eye-outline',
+        to: 'dynamic-link-settings',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'In-App Support',
+        icon: 'mdi-eye-outline',
+        to: 'in-app-support',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'App Upgrade',
+        icon: 'mdi-eye-outline',
+        to: 'app-upgrade',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Website Settings',
+        icon: 'mdi-eye-outline',
+        to: 'website-settings',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Mail Settings',
+        icon: 'mdi-eye-outline',
+        to: 'mail-settings',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Roles',
+        icon: 'mdi-eye-outline',
+        to: 'roles',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Upgrade',
+        icon: 'mdi-eye-outline',
+        to: 'upgrade',
+      }" />
+      <!-- 👉 Misc. -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'Misc.',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Onboarding',
+        icon: 'mdi-eye-outline',
+        to: 'onboarding',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'FAQs',
+        icon: 'mdi-eye-outline',
+        to: 'faqs',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Extensions',
+        icon: 'mdi-eye-outline',
+        to: 'extensions',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Reports',
+        icon: 'mdi-eye-outline',
+        to: 'reports',
+      }" />
+      <!-- 👉 Reports -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'Reports',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Loyalty Report',
+        icon: 'mdi-eye-outline',
+        to: 'loyalty-report',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Coupon Report',
+        icon: 'mdi-eye-outline',
+        to: 'coupon-report',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Referral Report',
+        icon: 'mdi-eye-outline',
+        to: 'referral-report',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Commission Report',
+        icon: 'mdi-eye-outline',
+        to: 'commission-report',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Products',
+        icon: 'mdi-eye-outline',
+        to: 'products',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Services',
+        icon: 'mdi-eye-outline',
+        to: 'services',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Vendors',
+        icon: 'mdi-eye-outline',
+        to: 'vendors',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Customers',
+        icon: 'mdi-eye-outline',
+        to: 'customers',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Subscriptions',
+        icon: 'mdi-eye-outline',
+        to: 'subscriptions',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Summary',
+        icon: 'mdi-eye-outline',
+        to: 'summary',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'POS (Extension)',
+        icon: 'mdi-eye-outline',
+        to: 'pos',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Driver Tracking (Extension)',
+        icon: 'mdi-eye-outline',
+        to: 'driver-tracking',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Media Manager',
+        icon: 'mdi-eye-outline',
+        to: 'media-manager',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Website Extension Settings',
+        icon: 'mdi-eye-outline',
+        to: 'website-extension-settings',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'External Notifier',
+        icon: 'mdi-eye-outline',
+        to: 'external-notifier',
+      }" />
+
+      <VerticalNavLink :item="{
+        title: 'Account Settings',
+        icon: 'mdi-account-cog-outline',
+        to: 'account-settings',
+      }" />
+      <!-- 👉 Pages -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'Pages',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Login',
+        icon: 'mdi-login',
+        to: 'login',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Register',
+        icon: 'mdi-account-plus-outline',
+        to: 'register',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Error',
+        icon: 'mdi-information-outline',
+        to: 'no-existence',
+      }" />
+
+      <!-- 👉 User Interface -->
+      <VerticalNavSectionTitle :item="{
+        heading: 'User Interface',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Typography',
+        icon: 'mdi-alpha-t-box-outline',
+        to: 'typography',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Icons',
+        icon: 'mdi-eye-outline',
+        to: 'icons',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Cards',
+        icon: 'mdi-credit-card-outline',
+        to: 'cards',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Tables',
+        icon: 'mdi-table',
+        to: 'tables',
+      }" />
+      <VerticalNavLink :item="{
+        title: 'Form Layouts',
+        icon: 'mdi-form-select',
+        to: 'form-layouts',
+      }" />
+      </div>
+    </template>
+
+    <!-- <template #after-vertical-nav-items>
+    </template> -->
+
+    <!-- 👉 Pages -->
+    <slot />
+
+  </VerticalNavLayout>
+</template>
+
+<style lang="scss" scoped>
+
+.meta-key {
+  border: thin solid rgba(var(--v-border-color), var(--v-border-opacity));
+  border-radius: 6px;
+  block-size: 1.5625rem;
+  line-height: 1.3125rem;
+  padding-block: 0.125rem;
+  padding-inline: 0.25rem;
+}
+</style>
+
+{
+    title: 'Dashboards',
+    icon: { icon: 'tabler-smart-home' },
+    children: [
+      {
+        title: 'Analytics',
+        to: 'dashboards-analytics',
+      },
+      {
+        title: 'eCommerce',
+        to: 'dashboards-ecommerce',
+      },
+      {
+        title: 'CRM',
+        to: 'dashboards-crm',
+      },
+    ],
+    badgeContent: '2',
+    badgeClass: 'bg-light-primary text-primary',
+  },
+
+
+
+
+`
+And this is a sample of page from all pages which is “banners”page
+` <script setup>
+
+import { ref } from 'vue';
+import DefaultLayoutWithVerticalNav from '@/layouts/components/DefaultLayoutWithVerticalNav.vue';
+import EditBannerDialog from './components/EditBannerDialog.vue';
+import CreateBannerDialog from './components/CreateBannerDialog.vue';
+import DeleteDialog from '@/layouts/components/DeleteDialog.vue';
+import {visitPage ,getStatusNumber,getStatusDecoration} from "@/helpers/page-helpers";
+
+const props = defineProps({
+  banners: {
+    current_page :null,
+    data:null,
+    last_page:null,
+    total:null,
+  },
+})
+
+let showCreateItem = ref(false)
+let showEditItem = ref(false)
+let showDeleteItem = ref(false)
+const searchQuery = ref('')
+const selectedStatus = ref('All')
+const rowPerPage = ref(10)
+const currentPage = ref(props.banners.current_page);
+const totalPage = ref(props.banners.last_page)
+const totalItems = ref(props.banners.total)
+let tappedItem = ref(null)
+const url = "http://localhost/banners";
+
+
+watch([rowPerPage, selectedStatus], ([rowPerPage, selectedStatus], [prevRowPerPage, prevSelectedStatus]) => {
+
+visitPage(url,{
+    per_page: rowPerPage,
+    status: getStatusNumber(selectedStatus),
+    search_keyword:searchQuery.value
+  },);
+})
+
+watch(searchQuery, (search, prevSearch) => {
+if(search.length ==0){
+resetStatus();
+}
+visitPage(url,{
+    per_page: rowPerPage.value,
+    status: getStatusNumber(selectedStatus),
+    search_keyword:search
+  },);
+
+})
+
+// 👉 Fetch banners
+watchEffect(() => {
+  totalPage.value = props.banners.last_page;
+  if (currentPage.value > totalPage.value)
+    currentPage.value = totalPage.value
+})
+
+
+const paginationData = computed(() => {
+  const itemsData = props.banners.data;
+  let firstId = null;
+  let lastId = null;
+  if(itemsData.length > 0){
+
+    firstId = itemsData[0].id;
+    lastId = itemsData[props.banners.data.length - 1].id;
+  }
+
+  return `Showing ${firstId} to ${lastId} of ${totalItems.value} entries`
+})
+
+const goToPage = ({ pageNumber }) => {
+
+  visitPage(url,{
+        per_page: rowPerPage.value,
+        page: pageNumber,
+        status: getStatusNumber(selectedStatus)
+      },);
+
+}
+
+const onDeleteTapped =(item)=>{
+  tappedItem = item;
+  showDeleteItem.value = true;
+}
+
+const onEditTapped =(item)=>{
+                tappedItem = item;
+                showEditItem.value = true;
+              }
+
+const resetStatus = ()=>{
+  selectedStatus.value = "All";
+}
+           
+</script>
+
+<template>
+  <DefaultLayoutWithVerticalNav>
+    <VCard v-if="banners.data" id="service-list">
+      <VCardText class="d-flex align-center flex-wrap gap-4">
+        <!-- 👉 Rows per page -->
+        <div class="d-flex align-center" style="width: 135px;">
+          <span class="text-no-wrap me-3">Show:</span>
+          <VSelect  v-model="rowPerPage" density="compact" :items="[10, 20, 30, 50]" />
+        </div>
+
+        <div class="me-3">
+          <!-- 👉 Create service -->
+          <VBtn prepend-icon="tabler-plus" @click="showCreateItem = true">
+            Create Banner
+          </VBtn>
+        </div>
+
+        <VSpacer />
+
+        <div class="d-flex align-center flex-wrap gap-4">
+          <!-- 👉 Search  -->
+          <div class="service-list-filter">
+            <VTextField v-model="searchQuery" placeholder="Search for" density="compact" />
+          </div>
+
+          <!-- 👉 Select status -->
+          <div class="service-list-filter">
+            <VSelect v-model="selectedStatus" label="Select Status" clearable clear-icon="tabler-x" single-line
+            :items="['All','Active', 'InActive']" />
+          </div>
+        </div>
+      </VCardText>
+
+      <VDivider />
+
+      <!-- SECTION Table -->
+      <VTable class="text-no-wrap service-list-table">
+        <!-- 👉 Table head -->
+        <thead class="text-uppercase">
+          <tr>
+            <th scope="col" class="text-center">
+              #ID
+            </th>
+
+            <th scope="col" class="text-center">
+              Name
+            </th>
+    
+            <th scope="col" class="text-center">
+              Created At
+            </th>
+
+            <th scope="col" class="text-center">
+              ACTIONS
+            </th>
+          </tr>
+        </thead>
+
+        <!-- 👉 Table Body -->
+        <tbody>
+          <tr v-for="banner in banners.data" :key="banner.id" style="height: 3.75rem;">
+            <!-- 👉 Id -->
+            <td class="text-center">
+              #{{ banner.id }}
+            </td>
+
+            <!-- 👉 Name -->
+            <td class="text-center">
+              <p class="mb-0">
+                {{ banner.name }}
+              </p>
+            </td>
+
+           
+
+            <!-- 👉 Created at -->
+            <td class="text-center">
+              <p class="mb-0">
+                {{ banner.created_at }}
+              </p>
+            </td>
+            <!-- 👉 Actions -->
+            <td class="text-center" style="width: 8rem;">
+
+              <VBtn @click="()=>onEditTapped(banner)" icon variant="text" color="default" size="x-small">
+                <VIcon :size="24" icon="mdi-table-edit" />
+              </VBtn>
+              <VBtn @click="()=>onDeleteTapped(banner)"  icon variant="text" color="default" size="x-small">
+                <VIcon :size="24" icon="mdi-delete-forever" color="error" />
+              </VBtn>
+
+            </td>
+          </tr>
+        </tbody>
+
+        <!-- 👉 table footer  -->
+        <tfoot v-show="!banners.data.length">
+          <tr>
+            <td colspan="8" class="text-center text-body-1">
+              No data available
+            </td>
+          </tr>
+        </tfoot>
+      </VTable>
+      <!-- !SECTION -->
+
+      <VDivider />
+
+      <!-- SECTION Pagination -->
+      <VCardText class="d-flex align-center flex-wrap gap-4 py-3">
+        <!-- 👉 Pagination meta -->
+        <span class="text-sm text-disabled">
+          {{ paginationData }}
+        </span>
+
+        <VSpacer />
+
+        <!-- 👉 Pagination -->
+        <VPagination v-model="currentPage" color="black" size="small" :total-visible="banners.last_page"
+          :length="totalPage" @update:modelValue="(val) => {
+            currentPage = val;
+            goToPage({ pageNumber: val });
+          }" @next="goToPage({ pageNumber: currentPage })" @prev="goToPage({ pageNumber: currentPage })" />
+      </VCardText>
+      <!-- !SECTION -->
+    </VCard>
+    <CreateBannerDialog v-if="showCreateItem" :isDialogOpened="showCreateItem" @close="showCreateItem = false"  />
+    <EditBannerDialog v-if="showEditItem" :isDialogOpened="showEditItem" :banner="tappedItem" @close="showEditItem = false" :service="tappedItem" :categories="props.categories.data" :vendorTypes="props.vendorTypes.data" :fees="props.fees.data" :zones="props.zones.data" />
+    <DeleteDialog v-if="showDeleteItem" :isDialogOpened="showDeleteItem" :bannerId="tappedItem.id" @close="showDeleteItem = false" :endpoint="'/banners/'+ tappedItem.id" />
+  </DefaultLayoutWithVerticalNav>
+</template>
+
+<style lang="scss">
+#service-list {
+  .service-list-actions {
+    inline-size: 8rem;
+  }
+
+  .service-list-filter {
+    inline-size: 12rem;
+  }
+}
+</style>
+
+` 
+And this is also a sample of page from all pages which is “menus”page
+` <script setup>
+
+import { ref } from 'vue';
+import DefaultLayoutWithVerticalNav from '@/layouts/components/DefaultLayoutWithVerticalNav.vue';
+import EditMenuDialog from './components/EditMenuDialog.vue';
+import CreateMenuDialog from './components/CreateMenuDialog.vue';
+import DeleteDialog from '@/layouts/components/DeleteDialog.vue';
+import { visitPage, getStatusNumber, getStatusDecoration } from "@/helpers/page-helpers";
+
+const props = defineProps({
+  menus: {
+    current_page: null,
+    data: null,
+    last_page: null,
+    total: null,
+  }
+})
+
+let showCreateDialog = ref(false)
+let showEditDialog = ref(false)
+let showDeleteDialog = ref(false)
+const searchQuery = ref('')
+const selectedStatus = ref('All')
+const rowPerPage = ref(10)
+const currentPage = ref(props.menus.current_page);
+const totalPage = ref(props.menus.last_page)
+const totalItems = ref(props.menus.total)
+let selectedItem = ref(null)
+const url = "http://localhost/menus";
+
+onMounted(() => {
+  console.log("menus is ", props.menus);
+}),
+
+  watch([rowPerPage, selectedStatus], ([rowPerPage, selectedStatus], [prevRowPerPage, prevSelectedStatus]) => {
+
+    visitPage(url, {
+      per_page: rowPerPage,
+      status: getStatusNumber(selectedStatus),
+      search_keyword: searchQuery.value
+    },);
+  })
+
+watch(searchQuery, (search, prevSearch) => {
+  if (search.length == 0) {
+    resetStatus();
+  }
+  visitPage(url, {
+    per_page: rowPerPage.value,
+    status: getStatusNumber(selectedStatus),
+    search_keyword: search
+  },);
+
+})
+
+// 👉 Fetch menus
+watchEffect(() => {
+  totalPage.value = props.menus.last_page;
+  if (currentPage.value > totalPage.value)
+    currentPage.value = totalPage.value
+})
+
+
+const paginationData = computed(() => {
+  const menusData = props.menus.data;
+  let firstId = null;
+  let lastId = null;
+  if (menusData.length > 0) {
+
+    firstId = menusData[0].id;
+    lastId = menusData[menusData.length - 1].id;
+  }
+
+  return `Showing ${firstId} to ${lastId} of ${totalItems.value} entries`
+})
+
+const goToPage = ({ pageNumber }) => {
+
+  visitPage(url, {
+    per_page: rowPerPage.value,
+    page: pageNumber,
+    status: getStatusNumber(selectedStatus)
+  },);
+
+}
+
+const onDeleteTapped = (menuType) => {
+  selectedItem = menuType;
+  showDeleteDialog.value = true;
+}
+
+const onEditTapped = (menuType) => {
+  selectedItem = menuType;
+  showEditDialog.value = true;
+}
+
+const resetStatus = () => {
+  selectedStatus.value = "All";
+}
+
+</script>
+
+<template>
+  <DefaultLayoutWithVerticalNav>
+    <VCard v-if="props.menus.data" id="menu-list">
+      <VCardText class="d-flex align-center flex-wrap gap-4">
+        <!-- 👉 Rows per page -->
+        <div class="d-flex align-center" style="width: 135px;">
+          <span class="text-no-wrap me-3">Show:</span>
+          <VSelect v-model="rowPerPage" density="compact" :items="[10, 20, 30, 50]" />
+        </div>
+
+        <div class="me-3">
+          <!-- 👉 Create menu -->
+          <VBtn prepend-icon="tabler-plus" @click="showCreateDialog = true">
+            Create Menu
+          </VBtn>
+        </div>
+
+        <VSpacer />
+
+        <div class="d-flex align-center flex-wrap gap-4">
+          <!-- 👉 Search  -->
+          <div class="menu-list-filter">
+            <VTextField v-model="searchQuery" placeholder="Search for" density="compact" />
+          </div>
+
+          <!-- 👉 Select status -->
+          <div class="menu-list-filter">
+            <VSelect v-model="selectedStatus" label="Select Status" clearable clear-icon="tabler-x" single-line
+              :items="['All', 'Active', 'InActive']" />
+          </div>
+        </div>
+      </VCardText>
+
+      <VDivider />
+
+      <!-- SECTION Table -->
+      <VTable class="text-no-wrap menu-list-table">
+        <!-- 👉 Table head -->
+        <thead class="text-uppercase">
+          <tr>
+            <th scope="col" class="text-center">
+              #ID
+            </th>
+
+            <th scope="col" class="text-center">
+              Name
+            </th>
+
+            <th scope="col" class="text-center">
+              Active
+            </th>
+
+            <th scope="col" class="text-center">
+              ACTIONS
+            </th>
+          </tr>
+        </thead>
+
+        <!-- 👉 Table Body -->
+        <tbody>
+          <tr v-for="product in props.menus.data" :key="product.id" style="height: 3.75rem;">
+            <!-- 👉 Id -->
+            <td class="text-center">
+              #{{ product.id }}
+            </td>
+
+
+            <!-- 👉 Name -->
+            <td class="text-center">
+              <p class="mb-0">
+                {{ product.name }}
+              </p>
+            </td>
+
+            <!-- 👉 Active -->
+            <td class="text-center">
+              <VChip label v-bind="getStatusDecoration(product.is_active).chip" size="small">
+                {{ getStatusDecoration(product.is_active).status }}
+              </VChip>
+            </td>
+
+            <!-- 👉 Actions -->
+            <td class="text-center" style="width: 8rem;">
+
+              <VBtn @click="() => onEditTapped(product)" icon variant="text" color="default" size="x-small">
+                <VIcon :size="24" icon="mdi-table-edit" />
+              </VBtn>
+              <VBtn @click="() => onDeleteTapped(product)" icon variant="text" color="default" size="x-small">
+                <VIcon :size="24" icon="mdi-delete-forever" color="error" />
+              </VBtn>
+
+            </td>
+          </tr>
+        </tbody>
+
+        <!-- 👉 table footer  -->
+        <tfoot v-show="!props.menus.data.length">
+          <tr>
+            <td colspan="8" class="text-center text-body-1">
+              No data available
+            </td>
+          </tr>
+        </tfoot>
+      </VTable>
+      <!-- !SECTION -->
+
+      <VDivider />
+
+      <!-- SECTION Pagination -->
+      <VCardText class="d-flex align-center flex-wrap gap-4 py-3">
+        <!-- 👉 Pagination meta -->
+        <span class="text-sm text-disabled">
+          {{ paginationData }}
+        </span>
+
+        <VSpacer />
+
+        <!-- 👉 Pagination -->
+        <VPagination v-model="currentPage" color="black" size="small" :total-visible="props.menus.last_page"
+          :length="totalPage" @update:modelValue="(val) => {
+            currentPage = val;
+            goToPage({ pageNumber: val });
+          }" @next="goToPage({ pageNumber: currentPage })" @prev="goToPage({ pageNumber: currentPage })" />
+      </VCardText>
+      <!-- !SECTION -->
+    </VCard>
+    <CreateMenuDialog v-if="showCreateDialog" :isDialogOpened="showCreateDialog" @close="showCreateDialog = false" />
+    <EditMenuDialog v-if="showEditDialog" :isDialogOpened="showEditDialog" :menu="selectedItem"
+      @close="showEditDialog = false" />
+    <DeleteDialog v-if="showDeleteDialog" :isDialogOpened="showDeleteDialog" :menuId="selectedItem.id"
+      @close="showDeleteDialog = false" :endpoint="'/menus/' + selectedItem.id" />
+  </DefaultLayoutWithVerticalNav>
+</template>
+
+<style lang="scss">
+#menu-list {
+  .menu-list-actions {
+    inline-size: 8rem;
+  }
+
+  .menu-list-filter {
+    inline-size: 12rem;
+  }
+}
+</style>
+
+`
+
